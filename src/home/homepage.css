@@ -1,16 +1,25 @@
-.input {
-    width: 350px;
-}
 
 .form {
     display: flex;
     flex-direction: column;
-    padding: 50px;
+    width: 100%;
 }
-
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    max-width: 430px;
+    padding: 0 40px;
+}
+.form-heading {
+    color: #ffffff;
+    font-size: 32px;
+    line-height: 48px;
+    font-weight: 400;
+}
 .MuiInputBase-root {
     color: white !important;
-    width: 350px;
 }
 .MuiFormLabel-root {
     color: #e6e6e6 !important;
@@ -48,4 +57,180 @@
 .MuiFormControl-root{
     margin-top: 16px !important;
     margin-bottom: 8px !important;
+}
+.top-banner {
+    height: 125px;
+    background-color: #242323;
+    color: #ffffff;
+    text-align: center;
+    padding: 16px 32px;
+    font-size: 40px;
+    line-height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-highlight__green1 {
+    color: #c3d830;
+}
+.header-logo {
+    height: 125px;
+}
+.header {
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.side-content {
+    flex: 1;
+    padding: 0 40px;
+    max-width: 430px;
+}
+.main-body {
+    display: flex;
+    padding: 40px 0;
+    justify-content: center;
+}
+.side-heading {
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 28px;
+    margin-bottom: 60px;
+    padding-top: 24px;
+}
+.section-heading__wrapper {
+    display: flex;
+    align-items: center;
+}
+.section-heading {
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: 400;
+    padding: 0 16px;
+    margin: 0;
+}
+.section-body {
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 32px;
+    margin-bottom: 60px;
+}
+.section-plus {
+    height: 40px;
+}
+.section-arrow {
+    height: 40px;
+    transform: rotate(180deg);
+}
+.lightgreen {
+    fill: #c3d830;
+}
+.midgreen {
+    fill: #9dbf3c;
+}
+.darkgreen {
+    fill: #82a53e;
+}
+.text-highlight__lightgreen {
+    color: #c3d830;
+}
+.text-highlight__midgreen {
+    color: #9dbf3c;
+}
+.text-highlight__darkgreen {
+    color: #82a53e;
+}
+.bottom-banner {
+    background-color: #242323;
+    padding: 60px 24px;
+    text-align: center;
+}
+.bottom-heading {
+    color: #ffffff;
+    font-size: 32px;
+    line-height: 48px;
+    font-weight: 400;
+    margin: 0;
+}
+.bottom-link {
+    color: #c3d830;
+    font-size: 40px;
+    line-height: 52px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0;
+}
+
+.bottom-link:hover {
+    text-decoration: underline;
+}
+.MuiButton-containedPrimary {
+    background-color: #82a53e !important;
+}
+.submit-button {
+    margin-top: 40px !important;
+    margin-bottom: 60px !important;
+}
+.note {
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 24px;
+    width: 100%;
+}
+@media only screen and (max-width: 768px) {
+    .header-logo {
+        height: 100px;
+    }
+    .top-banner {
+        font-size: 32px;
+        padding: 16px;
+        line-height: 40px;
+        height: 100px;
+    }
+    .form-heading {
+        font-size: 24px;
+        line-height: 36px;
+    }
+    .side-heading {
+        padding-top: 0;
+    }
+    .form-wrapper {
+        padding: 0 20px 0 40px;
+    }
+    .section-heading {
+        font-size: 32px;
+    }
+    .section-plus {
+        height: 32px;
+    }
+    .section-arrow {
+        height: 32px;
+        transform: rotate(180deg);
+    }
+    .side-content {
+        padding: 0 40px 0 20px;
+    }
+    .bottom-heading {
+        font-size: 24px;
+        line-height: 32px;
+    }
+    .bottom-link {
+        font-size: 28px;
+        line-height: 36px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .main-body {
+        flex-direction: column;
+    }
+    .form-wrapper, .side-content {
+        padding: 0 24px;
+    }
+    .side-content {
+        padding: 0 24px;
+    }
 }
