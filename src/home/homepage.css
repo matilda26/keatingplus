@@ -233,4 +233,10 @@
     .side-content {
         padding: 0 24px;
     }
+    .top-banner {
+        font-size: 24px;
+        padding: 16px;
+        line-height: 36px;
+        height: 100px;
+    }
 }
