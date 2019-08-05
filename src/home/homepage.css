@@ -7,21 +7,19 @@
     flex-direction: column;
     padding: 50px;
 }
-.checkbox-label {
-    margin-top: 16px;
-}
 
 .MuiInputBase-root {
     color: white !important;
+    width: 350px;
 }
 .MuiFormLabel-root {
-    color: #f2f2f2 !important;
+    color: #e6e6e6 !important;
 }
 .MuiInput-underline:after {
     border-bottom: 2px solid #c3d830 !important;
 }
 .MuiInput-underline:before {
-    border-bottom: 1px solid #f2f2f2 !important;
+    border-bottom: 1px solid #e6e6e6 !important;
 }
 .MuiFormLabel-asterisk {
     color: red;
@@ -36,5 +34,18 @@
     background-color:rgba(195, 216, 48, 0.08) !important;
 }
 .MuiFormControlLabel-label {
-    color: #f2f2f2 !important;
+    color: #e6e6e6 !important;
+}
+.MuiSelect-icon {
+    color: #e6e6e6 !important;
+}
+.MuiFormGroup-root {
+    margin-top: 8px !important;
+}
+.checkbox-label {
+    margin-top: 32px !important;
+}
+.MuiFormControl-root{
+    margin-top: 16px !important;
+    margin-bottom: 8px !important;
 }
