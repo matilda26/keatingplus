@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import Homepage from './home';
+import SingleCol from './singleCol';
+require('dotenv').config()
 
 function App() {
   return (
     <div className="App">
-      <Homepage />
+      <SingleCol />
     </div>
   );
 }

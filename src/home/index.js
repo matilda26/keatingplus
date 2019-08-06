@@ -48,9 +48,9 @@ class Homepage extends React.Component {
       doc.useServiceAccountAuth(creds, (err) => console.log('error: ', err));
 
       console.log('DOC: ', doc)
-      doc.getInfo((err, info) => {
+      doc.getInfo((err) => {
         // console.log('Loaded doc: '+info.title+' by '+info.author.email);
-        console.log('info: ', info)
+        // console.log('info: ', info)
         console.log('get info err: ', err)
         // sheet = info.worksheets[0];
         // console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
@@ -121,8 +121,9 @@ class Homepage extends React.Component {
                     value={this.state.gstReg}
                     onChange={(option) => this.handleChange('gstReg', option.target.value)}
                     >
-                        <FormControlLabel value="cash" control={<Radio />} label="Cash" className={this.state.gstReg === 'Cash' ? 'selected' : ''}/>
-                        <FormControlLabel value="accrual" control={<Radio />} label="Accrual" className={this.state.gstReg === 'Accrual' ? 'selected' : ''}/>
+                        <FormControlLabel value="cash" control={<Radio />} label="Cash" className={this.state.gstReg === 'cash' ? 'selected' : ''}/>
+                        <FormControlLabel value="accrual" control={<Radio />} label="Accrual" className={this.state.gstReg === 'accrual' ? 'selected' : ''}/>
+                        <FormControlLabel value="notRegistered" control={<Radio />} label="Not currently registered" className={this.state.gstReg === 'notRegistered' ? 'selected' : ''}/>
                     </RadioGroup>
                     <TextField
                         id="abn"
@@ -165,6 +166,17 @@ class Homepage extends React.Component {
                             <MenuItem value={'10,000+'}>10,001+ employees</MenuItem>
                         </Select>
                     </FormControl>
+                    <FormLabel component="legend" className='checkbox-label'>Are you using a cloud-based accounting package?<span className='MuiFormLabel-asterisk'>*</span></FormLabel>
+                    <RadioGroup
+                    aria-label="opState"
+                    name="opState"
+                    className='label'
+                    value={this.state.opState}
+                    onChange={(option) => this.handleChange('opState', option.target.value)}
+                    >
+                        <FormControlLabel value="yes" control={<Radio />} label="Yes" className={this.state.gstReg === 'yes' ? 'selected' : ''}/>
+                        <FormControlLabel value="no" control={<Radio />} label="No, we operate offline" className={this.state.gstReg === 'no' ? 'selected' : ''}/>
+                    </RadioGroup>
                     <TextField
                         id="accSoft"
                         label="Accounting Software"
@@ -172,7 +184,7 @@ class Homepage extends React.Component {
                         value={this.state.accSoft}
                         onChange={(text) => this.handleChange('accSoft', text.target.value)}
                         margin="normal"
-                        required={true}
+                        required={false}
                     />
                     <TextField
                         id="package"
@@ -181,20 +193,9 @@ class Homepage extends React.Component {
                         value={this.state.package}
                         onChange={(text) => this.handleChange('package', text.target.value)}
                         margin="normal"
-                        required={true}
+                        required={false}
                     />
 
-                    <FormLabel component="legend" className='checkbox-label'>Are you operating online or offline?<span className='MuiFormLabel-asterisk'>*</span></FormLabel>
-                    <RadioGroup
-                    aria-label="opState"
-                    name="opState"
-                    className='label'
-                    value={this.state.opState}
-                    onChange={(option) => this.handleChange('opState', option.target.value)}
-                    >
-                        <FormControlLabel value="online" control={<Radio />} label="Online" className={this.state.gstReg === 'Online' ? 'selected' : ''}/>
-                        <FormControlLabel value="offline" control={<Radio />} label="Offline" className={this.state.gstReg === 'Offline' ? 'selected' : ''}/>
-                    </RadioGroup>
                     <Button variant="contained" size="large" color="primary" className='submit-button'>
                        Submit
                     </Button>

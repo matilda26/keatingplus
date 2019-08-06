@@ -66,3 +66,13 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+to do:
+- create mailchimp
+- create email template for thanks for submitting
+- create email template for contact after 
+- on form submit
+    - add email to mail chimp
+    - send form results to scott
+    - add form results to database
