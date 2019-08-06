@@ -106,17 +106,11 @@
     justify-content: center;
     align-items: center;
 }
-.side-content {
-    padding: 0 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: auto;
-}
 .main-body {
     display: flex;
+    flex-direction: column;
     padding: 60px 0 0 0;
-    justify-content: center;
+    align-items: center;
     text-align: center;
     background-color: #242323;
 }

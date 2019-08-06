@@ -16,7 +16,7 @@ import { ReactComponent as Logo } from './logo-stacked.svg'
 import { ReactComponent as Plus } from './plus.svg'
 import { ReactComponent as Arrow } from './arrow.svg'
 
-const creds = require('../helpers/credentials.json')
+// const creds = require('../helpers/credentials.json')
 
 const doc = new GoogleSpreadsheet(process.env.REACT_APP_GOOGLE_SHEETS_SPREADSHEET_ID)
 let sheet;
@@ -45,7 +45,7 @@ class SingleCol extends React.Component {
   }
 
   componentDidMount() {
-      doc.useServiceAccountAuth(creds, (err) => console.log('error: ', err));
+    //   doc.useServiceAccountAuth(creds, (err) => console.log('error: ', err));
 
       console.log('DOC: ', doc)
       doc.getInfo((err) => {
@@ -207,7 +207,6 @@ class SingleCol extends React.Component {
                 </div>
             </div>
         <div className='main-body'>
-            <div className='side-content'>
                 <h2 className='form-heading'>Our online services</h2>
                 <div className='underline-detail bottom-detail' />
                 <div className='service-wrapper'>
@@ -239,7 +238,6 @@ class SingleCol extends React.Component {
                         <p className='section-body'>Keep up to date with your business finances with our online instant access bookkeeping and reporting.</p>
                     </div>
                 </div>
-            </div>
         </div>
         <div className='bottom-banner'>
             <h3 className='bottom-heading'>For more information on Keating & Co, please visit</h3>
