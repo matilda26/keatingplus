@@ -32,7 +32,9 @@ class SingleCol extends React.Component {
           accSoft: '',
           package: '',
           opState: '',
-      }
+      },
+      errors: {},
+      hasErrors: false
   }
 
   handleChange = (type, text) => {
@@ -44,26 +46,135 @@ class SingleCol extends React.Component {
     })
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.addToDo({
-        [moment().format()]: this.state.data
-    });
-    this.setState({
-        data: {
-            name: '',
-            company: '',
-            email: '',
-            gstReg: '',
-            ABN: '',
-            noOfSites: '',
-            noOfEmployees: '',
-            accSoft: '',
-            package: '',
-            opState: '',
-        }
-    });    
+
+    await this.validateFields()
+    if (this.state.hasErrors) {
+        console.log('errors', this.state.errors)
+    }
+
+    // this.props.addToDo({
+    //     [moment().format()]: this.state.data
+    // });
+    // this.setState({
+    //     data: {
+    //         name: '',
+    //         company: '',
+    //         email: '',
+    //         gstReg: '',
+    //         ABN: '',
+    //         noOfSites: '',
+    //         noOfEmployees: '',
+    //         accSoft: '',
+    //         package: '',
+    //         opState: '',
+    //     }
+    // });    
   }
+
+  validateFields = async () => {
+      const {data} = this.state
+      const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      const ABNRegex = /^(\d *?){11}$/
+      if (data.name.length < 1) {
+        console.log('name failed')
+          this.setState((state, props) => {
+            return {
+                errors: {
+                    ...state.errors,
+                    name: true
+                },
+                hasErrors: true
+            }
+        })
+      }
+      if (data.company.length < 1) {
+        console.log('company failed')
+          this.setState((state, props) => {
+            return {
+                errors: {
+                    ...state.errors,
+                    company: true
+                },
+                hasErrors: true
+            }
+        })
+      }
+		if (emailRegex.test(String(data.email).toLowerCase()) === false) {
+			console.log('email failed')
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							email: true
+					},
+					hasErrors: true
+				}
+			})
+		}
+		if (data.gstReg === '') {
+			console.log('gst failed')
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							gstReg: true
+					},
+					hasErrors: true
+				}
+			})
+		}
+		if (ABNRegex.test(data.ABN) === false) {
+			console.log('ABN failed')
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							ABN: true
+					},
+					hasErrors: true
+				}
+      })
+    }
+    if (data.noOfSites === '') {
+        console.log('noOfSites failed')
+        this.setState((state, props) => {
+          return {
+              errors: {
+                  ...state.errors,
+                  noOfSites: true
+              },
+              hasErrors: true
+          }
+      })
+		}
+		if (data.noOfEmployees === '') {
+			console.log('noOfEmployees failed')
+			this.setState((state, props) => {
+				return {
+						errors: {
+								...state.errors,
+								noOfEmployees: true
+						},
+						hasErrors: true
+				}
+			})
+		}
+		if (data.opState === '') {
+			console.log('opState failed')
+			this.setState((state, props) => {
+				return {
+						errors: {
+								...state.errors,
+								opState: true
+						},
+						hasErrors: true
+				}
+			})
+		}
+  }
+
 
   render() {
     return (
@@ -166,33 +277,37 @@ class SingleCol extends React.Component {
                         </FormControl>
                         <FormLabel component="legend" className='checkbox-label'>Are you using a cloud-based accounting package?<span className='MuiFormLabel-asterisk'>*</span></FormLabel>
                         <RadioGroup
-                        aria-label="opState"
-                        name="opState"
-                        className='label'
-                        value={this.state.data.opState}
-                        onChange={(option) => this.handleChange('opState', option.target.value)}
+													aria-label="opState"
+													name="opState"
+													className='label'
+													value={this.state.data.opState}
+													onChange={(option) => this.handleChange('opState', option.target.value)}
                         >
                             <FormControlLabel value="yes" control={<Radio />} label="Yes" className={this.state.data.gstReg === 'yes' ? 'selected' : ''}/>
                             <FormControlLabel value="no" control={<Radio />} label="No, we operate offline" className={this.state.data.gstReg === 'no' ? 'selected' : ''}/>
                         </RadioGroup>
-                        <TextField
-                            id="accSoft"
-                            label="Accounting Software"
-                            className='input'
-                            value={this.state.data.accSoft}
-                            onChange={(text) => this.handleChange('accSoft', text.target.value)}
-                            margin="normal"
-                            required={false}
-                        />
-                        <TextField
-                            id="package"
-                            label="Package used"
-                            className='input'
-                            value={this.state.data.package}
-                            onChange={(text) => this.handleChange('package', text.target.value)}
-                            margin="normal"
-                            required={false}
-                        />
+												{this.state.data.opState === 'yes' && (
+													<>
+														<TextField
+																id="accSoft"
+																label="Accounting Software"
+																className='input'
+																value={this.state.data.accSoft}
+																onChange={(text) => this.handleChange('accSoft', text.target.value)}
+																margin="normal"
+																required={false}
+														/>
+														<TextField
+																id="package"
+																label="Package used"
+																className='input'
+																value={this.state.data.package}
+																onChange={(text) => this.handleChange('package', text.target.value)}
+																margin="normal"
+																required={false}
+														/>
+													</>
+												)}
 
                         <Button variant="contained" size="large" color="primary" className='submit-button' onClick={this.handleSubmit}>
                         Submit
