@@ -30,9 +30,8 @@ class SingleCol extends React.Component {
           ABN: '',
           noOfSites: '',
           noOfEmployees: '',
-          accSoft: '',
           package: '',
-          opState: '',
+          bankFeed: '',
       },
       errors: {},
       hasErrors: false
@@ -57,7 +56,8 @@ class SingleCol extends React.Component {
 			&& !this.state.errors.ABN 
 			&& !this.state.errors.noOfSites 
 			&& !this.state.errors.noOfEmployees 
-			&& !this.state.errors.opState) {
+			&& !this.state.errors.package
+			&& !this.state.errors.bankFeed) {
 
 			console.log('no errors')
 
@@ -74,9 +74,8 @@ class SingleCol extends React.Component {
 							ABN: '',
 							noOfSites: '',
 							noOfEmployees: '',
-							accSoft: '',
 							package: '',
-							opState: '',
+							bankFeed: '',
 					},
 					errors: {}
 			})
@@ -87,7 +86,7 @@ class SingleCol extends React.Component {
 		const {data} = this.state
 		const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		const ABNRegex = /^(\d *?){11}$/
-		
+
 		if (data.name.length < 1) {
 			console.log('name failed')
 				this.setState((state, props) => {
@@ -235,13 +234,13 @@ class SingleCol extends React.Component {
 				}
 			})
 		}
-		if (data.opState === '') {
-			console.log('opState failed')
+		if (data.package === '') {
+			console.log('package failed')
 			this.setState((state, props) => {
 				return {
 						errors: {
 								...state.errors,
-								opState: true
+								package: true
 						},
 						hasErrors: true
 				}
@@ -251,7 +250,28 @@ class SingleCol extends React.Component {
 				return {
 					errors: {
 							...state.errors,
-							opState: false
+							package: false
+					}
+				}
+			})
+		}
+		if (data.bankFeed === '') {
+			console.log('bankFeed failed')
+			this.setState((state, props) => {
+				return {
+						errors: {
+								...state.errors,
+								bankFeed: true
+						},
+						hasErrors: true
+				}
+			})
+		} else {
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							bankFeed: false
 					}
 				}
 			})
@@ -376,47 +396,66 @@ class SingleCol extends React.Component {
 												<FormLabel 
 													component="legend" 
 													className='checkbox-label'
-													error={this.state.errors.opState === true}
-													helperText={this.state.errors.opState ? 'Please select an option below' : null}
 												>
-													Are you using a cloud-based accounting package?<span className='MuiFormLabel-asterisk'>*</span>
+													What cloud based accounting package are you using?<span className='MuiFormLabel-asterisk'>*</span>
 												</FormLabel>
                         <RadioGroup
-													aria-label="opState"
-													name="opState"
+													aria-label="package"
+													name="package"
 													className='label'
-													value={this.state.data.opState}
-													onChange={(option) => this.handleChange('opState', option.target.value)}
+													value={this.state.data.package}
+													onChange={(option) => this.handleChange('package', option.target.value)}
                         >
-                            <FormControlLabel value="yes" control={<Radio />} label="Yes" className={this.state.data.gstReg === 'yes' ? 'selected' : ''}/>
-                            <FormControlLabel value="no" control={<Radio />} label="No, we operate offline" className={this.state.data.gstReg === 'no' ? 'selected' : ''}/>
+                            <FormControlLabel value="xero" control={<Radio />} label="Xero" className={this.state.data.package === 'xero' ? 'selected' : ''}/>
+                            <FormControlLabel value="myob" control={<Radio />} label="MYOB" className={this.state.data.package === 'myob' ? 'selected' : ''}/>
+														<FormControlLabel value="quickbooks" control={<Radio />} label="Quickbooks" className={this.state.data.package === 'quickbooks' ? 'selected' : ''}/>
+														<FormControlLabel value="other" control={<Radio />} label="Other" className={this.state.data.package === 'other' ? 'selected' : ''}/>
                         </RadioGroup>
-												{this.state.errors.opState === true && (
+												{this.state.errors.package === true && (
 													<FormHelperText>Please select an option above</FormHelperText>
 												)}
-												{this.state.data.opState === 'yes' && (
-													<>
-														<TextField
-																id="accSoft"
-																label="Accounting Software"
-																className='input'
-																value={this.state.data.accSoft}
-																onChange={(text) => this.handleChange('accSoft', text.target.value)}
-																margin="normal"
-																required={false}
-														/>
-														<TextField
-																id="package"
-																label="Package used"
-																className='input'
-																value={this.state.data.package}
-																onChange={(text) => this.handleChange('package', text.target.value)}
-																margin="normal"
-																required={false}
-														/>
-													</>
+												<FormLabel 
+													component="legend" 
+													className='checkbox-label'
+												>
+													Have you got Bank-Feed?<span className='MuiFormLabel-asterisk'>*</span>
+												</FormLabel>
+                        <RadioGroup
+													aria-label="bankFeed"
+													name="bankFeed"
+													className='label'
+													value={this.state.data.bankFeed}
+													onChange={(option) => this.handleChange('bankFeed', option.target.value)}
+                        >
+                            <FormControlLabel value="yes" control={<Radio />} label="Yes" className={this.state.data.bankFeed === 'yes' ? 'selected' : ''}/>
+                            <FormControlLabel value="no" control={<Radio />} label="No" className={this.state.data.bankFeed === 'no' ? 'selected' : ''}/>
+                        </RadioGroup>
+												{this.state.errors.bankFeed === true && (
+													<FormHelperText>Please select an option above</FormHelperText>
 												)}
-
+												{this.state.data.bankFeed === 'no' && (
+													<p className='bank-feed-message'>In order to proceed you need a bank-feed. Contact your Bank or Keating & Co to arrange this simple process.<br/><br/>
+													<a className='contact-email' href='mailto:rutherford.matilda@gmail.com'>Contact Keating & Co</a></p>
+												)}
+												<FormLabel 
+													component="legend" 
+													className='checkbox-label'
+												>
+													I am interested in:
+												</FormLabel>
+                        <RadioGroup
+													aria-label="extras"
+													name="extras"
+													className='label'
+													value={this.state.data.extras}
+													onChange={(option) => this.handleChange('extras', option.target.value)}
+                        >
+                            <FormControlLabel value="autoBas" control={<Radio />} label="+ AutoBas" className={this.state.data.extras === 'autoBas' ? 'selected' : ''}/>
+                            <FormControlLabel value="autoReturns" control={<Radio />} label="+ AutoReturns" className={this.state.data.extras === 'autoReturns' ? 'selected' : ''}/>
+														<FormControlLabel value="autoReporting" control={<Radio />} label="+ AutoReporting" className={this.state.data.extras === 'autoReporting' ? 'selected' : ''}/>
+                        </RadioGroup>
+												<h3 className='terms-heading'>Please note:</h3>
+												<p className='terms-message'>By clicking submit you agree to receive communications from Keating and Co.</p>
                         <Button variant="contained" size="large" color="primary" className='submit-button' onClick={this.handleSubmit}>
                         Submit
                         </Button>

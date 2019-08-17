@@ -233,11 +233,12 @@
 }
 
 .MuiButton-containedPrimary {
-    background-color: #82a53e !important;
+    background-color: #c3d830 !important;
+    color: #000000 !important;
 }
 
 .submit-button {
-    margin-top: 40px !important;
+    margin-top: 24px !important;
     margin-bottom: 60px !important;
 }
 
@@ -270,6 +271,31 @@
 
 .MuiInput-underline.Mui-error:after {
     border-bottom: 2px solid #f44336 !important;
+}
+
+.bank-feed-message {
+    border: 2px solid #ffffff;
+    background-color: rgba(255,255,255,0.2);
+    padding: 16px;
+    color: #ffffff;
+}
+
+.contact-email {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.terms-heading {
+    color: #c3d830;
+    padding: 0;
+    margin: 0;
+    margin-top: 32px;
+    font-size: 16px;
+}
+.terms-message {
+    color: #ffffff;
+    line-height: 28px;
+    margin-top: 0;
 }
 
 @media only screen and (max-width: 768px) {
