@@ -10,6 +10,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import Modal from "@material-ui/core/Modal";
 
 import { FormControl } from "@material-ui/core";
 import { ReactComponent as Logo } from "./logo-stacked.svg";
@@ -34,7 +35,8 @@ class SingleCol extends React.Component {
       extras: ""
     },
     errors: {},
-    formSubmitted: false
+    formSubmitted: false,
+    modalOpen: true
   };
 
   handleChange = (type, text) => {
@@ -43,6 +45,14 @@ class SingleCol extends React.Component {
         ...this.state.data,
         [type]: text
       }
+    });
+  };
+
+  toggleModal = () => {
+    this.setState((state, props) => {
+      return {
+        modalOpen: !state.modalOpen
+      };
     });
   };
 
@@ -65,6 +75,8 @@ class SingleCol extends React.Component {
       this.props.addToDo({
         [moment().format()]: this.state.data
       });
+
+      this.toggleModal();
 
       this.setState({
         data: {
@@ -614,6 +626,29 @@ class SingleCol extends React.Component {
             </form>
           </div>
         </div>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.state.modalOpen}
+          onClose={this.toggleModal}
+        >
+          <div className="modal">
+            <h2 id="simple-modal-title">Thank you for submitting!</h2>
+            <p id="simple-modal-description">
+              A Keating & Co representative will be in touch with you soon with
+              your estimate.
+            </p>
+            <Button
+              variant="contained"
+              size="small"
+              color="primary"
+              className="modal-button"
+              onClick={this.toggleModal}
+            >
+              Close
+            </Button>
+          </div>
+        </Modal>
         <div className="main-body">
           <h2 className="form-heading">Our online services</h2>
           <div className="underline-detail bottom-detail" />
