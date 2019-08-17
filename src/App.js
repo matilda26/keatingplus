@@ -1,7 +1,7 @@
-import React from 'react';
-import './App.css';
-import SingleCol from './singleCol';
-require('dotenv').config()
+import React from "react";
+import "./App.css";
+import SingleCol from "./singleCol";
+require("dotenv").config();
 
 function App() {
   return (

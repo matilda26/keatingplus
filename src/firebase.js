@@ -1,12 +1,12 @@
-import * as firebase from 'firebase';
+import * as firebase from "firebase";
 const config = {
-  apiKey: "AIzaSyDwFDcclWId7L5xj94Z-fns-Qypwz_05vs",
-  authDomain: "keatingauto-7780c.firebaseapp.com",
-  databaseURL: "https://keatingauto-7780c.firebaseio.com",
-  projectId: "keatingauto-7780c",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: "",
-  messagingSenderId: "626178688872",
-}
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+};
 firebase.initializeApp(config);
 const databaseRef = firebase.database().ref();
-export const formResults = databaseRef.child("formResults")
+export const formResults = databaseRef.child("formResults");

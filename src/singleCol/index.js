@@ -36,7 +36,7 @@ class SingleCol extends React.Component {
     },
     errors: {},
     formSubmitted: false,
-    modalOpen: true
+    modalOpen: false
   };
 
   handleChange = (type, text) => {
