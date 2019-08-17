@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
+import FormHelperText from '@material-ui/core/FormHelperText'
 
 import { FormControl } from '@material-ui/core'
 import { ReactComponent as Logo } from './logo-stacked.svg'
@@ -48,71 +49,108 @@ class SingleCol extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-
     await this.validateFields()
-    if (this.state.hasErrors) {
-        console.log('errors', this.state.errors)
-    }
+		if (!this.state.errors.name 
+			&& !this.state.errors.company 
+			&& !this.state.errors.email 
+			&& !this.state.errors.gstReg 
+			&& !this.state.errors.ABN 
+			&& !this.state.errors.noOfSites 
+			&& !this.state.errors.noOfEmployees 
+			&& !this.state.errors.opState) {
 
-    // this.props.addToDo({
-    //     [moment().format()]: this.state.data
-    // });
-    // this.setState({
-    //     data: {
-    //         name: '',
-    //         company: '',
-    //         email: '',
-    //         gstReg: '',
-    //         ABN: '',
-    //         noOfSites: '',
-    //         noOfEmployees: '',
-    //         accSoft: '',
-    //         package: '',
-    //         opState: '',
-    //     }
-    // });    
+			console.log('no errors')
+
+			this.props.addToDo({
+        [moment().format()]: this.state.data
+			})
+			
+			this.setState({
+					data: {
+							name: '',
+							company: '',
+							email: '',
+							gstReg: '',
+							ABN: '',
+							noOfSites: '',
+							noOfEmployees: '',
+							accSoft: '',
+							package: '',
+							opState: '',
+					},
+					errors: {}
+			})
+		}
   }
 
   validateFields = async () => {
-      const {data} = this.state
-      const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      const ABNRegex = /^(\d *?){11}$/
-      if (data.name.length < 1) {
-        console.log('name failed')
-          this.setState((state, props) => {
-            return {
-                errors: {
-                    ...state.errors,
-                    name: true
-                },
-                hasErrors: true
-            }
-        })
-      }
-      if (data.company.length < 1) {
-        console.log('company failed')
-          this.setState((state, props) => {
-            return {
-                errors: {
-                    ...state.errors,
-                    company: true
-                },
-                hasErrors: true
-            }
-        })
-      }
+		const {data} = this.state
+		const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		const ABNRegex = /^(\d *?){11}$/
+		
+		if (data.name.length < 1) {
+			console.log('name failed')
+				this.setState((state, props) => {
+					return {
+							errors: {
+									...state.errors,
+									name: true
+							},
+							hasErrors: true
+					}
+			})
+		} else {
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							name: false
+					}
+				}
+			})
+		}
+		if (data.company.length < 1) {
+			console.log('company failed')
+				this.setState((state, props) => {
+					return {
+							errors: {
+									...state.errors,
+									company: true
+							},
+							hasErrors: true
+					}
+			})
+		} else {
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							company: false
+					}
+				}
+			})
+		}
 		if (emailRegex.test(String(data.email).toLowerCase()) === false) {
 			console.log('email failed')
 			this.setState((state, props) => {
 				return {
 					errors: {
 							...state.errors,
-							email: true
+							email: true,
 					},
 					hasErrors: true
 				}
 			})
-		}
+		} else {
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							email: false,
+					}
+				}
+			})
+		} 
 		if (data.gstReg === '') {
 			console.log('gst failed')
 			this.setState((state, props) => {
@@ -122,6 +160,15 @@ class SingleCol extends React.Component {
 							gstReg: true
 					},
 					hasErrors: true
+				}
+			})
+		} else {
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							gstReg: false
+					}
 				}
 			})
 		}
@@ -136,7 +183,16 @@ class SingleCol extends React.Component {
 					hasErrors: true
 				}
       })
-    }
+    } else {
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							ABN: false
+					}
+				}
+			})
+		}
     if (data.noOfSites === '') {
         console.log('noOfSites failed')
         this.setState((state, props) => {
@@ -148,6 +204,15 @@ class SingleCol extends React.Component {
               hasErrors: true
           }
       })
+		} else {
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							noOfSites: false
+					}
+				}
+			})
 		}
 		if (data.noOfEmployees === '') {
 			console.log('noOfEmployees failed')
@@ -160,6 +225,15 @@ class SingleCol extends React.Component {
 						hasErrors: true
 				}
 			})
+		} else {
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							noOfEmployees: false
+					}
+				}
+			})
 		}
 		if (data.opState === '') {
 			console.log('opState failed')
@@ -170,6 +244,15 @@ class SingleCol extends React.Component {
 								opState: true
 						},
 						hasErrors: true
+				}
+			})
+		} else {
+			this.setState((state, props) => {
+				return {
+					errors: {
+							...state.errors,
+							opState: false
+					}
 				}
 			})
 		}
@@ -201,7 +284,9 @@ class SingleCol extends React.Component {
                             value={this.state.data.name}
                             onChange={(text) => this.handleChange('name', text.target.value)}
                             margin="normal"
-                            required={true}
+														required={true}
+														error={this.state.errors.name === true}
+														helperText={this.state.errors.name ? 'Please add your name' : null}
                         />
                         <TextField
                             id="company-name"
@@ -210,7 +295,9 @@ class SingleCol extends React.Component {
                             value={this.state.data.company}
                             onChange={(text) => this.handleChange('company', text.target.value)}
                             margin="normal"
-                            required={true}
+														required={true}
+														error={this.state.errors.company === true}
+														helperText={this.state.errors.company ? 'Please add your company' : null}
                         />
                         <TextField
                             id="email"
@@ -220,48 +307,59 @@ class SingleCol extends React.Component {
                             onChange={(text) => this.handleChange('email', text.target.value)}
                             margin="normal"
                             required={true}
-                            type='email'
+														type='email'
+														error={this.state.errors.email === true}
+														helperText={this.state.errors.email ? 'Please enter a valid email' : null}
                         />
                         <FormLabel component="legend" className='checkbox-label'>GST Registration<span className='MuiFormLabel-asterisk'>*</span></FormLabel>
                         <RadioGroup
-                        aria-label="gstReg"
-                        name="gstReg"
-                        className='label'
-                        value={this.state.data.gstReg}
-                        onChange={(option) => this.handleChange('gstReg', option.target.value)}
+													aria-label="gstReg"
+													name="gstReg"
+													className='label'
+													value={this.state.data.gstReg}
+													onChange={(option) => this.handleChange('gstReg', option.target.value)}
                         >
                             <FormControlLabel value="cash" control={<Radio />} label="Cash" className={this.state.data.gstReg === 'cash' ? 'selected' : ''}/>
                             <FormControlLabel value="accrual" control={<Radio />} label="Accrual" className={this.state.data.gstReg === 'accrual' ? 'selected' : ''}/>
                             <FormControlLabel value="notRegistered" control={<Radio />} label="Not currently registered" className={this.state.data.gstReg === 'notRegistered' ? 'selected' : ''}/>
                         </RadioGroup>
+												{this.state.errors.gstReg === true && (
+													<FormHelperText>Please select an option above</FormHelperText>
+												)}
                         <TextField
-                            id="abn"
-                            label="ABN"
-                            className='input'
-                            value={this.state.data.ABN}
-                            onChange={(text) => this.handleChange('ABN', text.target.value)}
-                            margin="normal"
-                            required={true}
+													id="abn"
+													label="ABN"
+													className='input'
+													value={this.state.data.ABN}
+													onChange={(text) => this.handleChange('ABN', text.target.value)}
+													margin="normal"
+													required={true}
+													error={this.state.errors.ABN === true}
+													helperText={this.state.errors.ABN ? 'Please enter a valid ABN' : null}
                         />
                         <TextField
-                            id="noOfSites"
-                            label="Number of sites"
-                            className='input'
-                            value={this.state.data.noOfSites}
-                            onChange={(text) => this.handleChange('noOfSites', text.target.value)}
-                            margin="normal"
-                            required={true}
-                            type='number'
+													id="noOfSites"
+													label="Number of sites"
+													className='input'
+													value={this.state.data.noOfSites}
+													onChange={(text) => this.handleChange('noOfSites', text.target.value)}
+													margin="normal"
+													required={true}
+													type='number'
+													error={this.state.errors.noOfSites === true}
+													helperText={this.state.errors.noOfSites ? 'Please enter your number of sites' : null}
                         />
                         <FormControl>
                             <InputLabel htmlFor="no-of-employees">Number of employees<span className='MuiFormLabel-asterisk'>*</span></InputLabel>
                             <Select
-                            value={this.state.data.noOfEmployees}
-                            onChange={(value) => this.handleChange('noOfEmployees', value.target.value)}
-                            inputProps={{
-                                name: 'noOfEmployees',
-                                id: 'no-of-employees',
-                            }}
+															value={this.state.data.noOfEmployees}
+															onChange={(value) => this.handleChange('noOfEmployees', value.target.value)}
+															inputProps={{
+																	name: 'noOfEmployees',
+																	id: 'no-of-employees',
+															}}
+															error={this.state.errors.noOfEmployees === true}
+															helperText={this.state.errors.noOfEmployees ? 'Please select an option' : null}
                             >
                                 <MenuItem value={''}>Please select</MenuItem>
                                 <MenuItem value={'1'}>Self employed</MenuItem>
@@ -275,7 +373,14 @@ class SingleCol extends React.Component {
                                 <MenuItem value={'10,000+'}>10,001+ employees</MenuItem>
                             </Select>
                         </FormControl>
-                        <FormLabel component="legend" className='checkbox-label'>Are you using a cloud-based accounting package?<span className='MuiFormLabel-asterisk'>*</span></FormLabel>
+												<FormLabel 
+													component="legend" 
+													className='checkbox-label'
+													error={this.state.errors.opState === true}
+													helperText={this.state.errors.opState ? 'Please select an option below' : null}
+												>
+													Are you using a cloud-based accounting package?<span className='MuiFormLabel-asterisk'>*</span>
+												</FormLabel>
                         <RadioGroup
 													aria-label="opState"
 													name="opState"
@@ -286,6 +391,9 @@ class SingleCol extends React.Component {
                             <FormControlLabel value="yes" control={<Radio />} label="Yes" className={this.state.data.gstReg === 'yes' ? 'selected' : ''}/>
                             <FormControlLabel value="no" control={<Radio />} label="No, we operate offline" className={this.state.data.gstReg === 'no' ? 'selected' : ''}/>
                         </RadioGroup>
+												{this.state.errors.opState === true && (
+													<FormHelperText>Please select an option above</FormHelperText>
+												)}
 												{this.state.data.opState === 'yes' && (
 													<>
 														<TextField
