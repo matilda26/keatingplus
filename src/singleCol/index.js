@@ -10,18 +10,16 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
 
-import GoogleSpreadsheet from 'google-spreadsheet'
 import { FormControl } from '@material-ui/core'
 import { ReactComponent as Logo } from './logo-stacked.svg'
 import { ReactComponent as Plus } from './plus.svg'
-import { ReactComponent as Arrow } from './arrow.svg'
 
-// const creds = require('../helpers/credentials.json')
-
-const doc = new GoogleSpreadsheet(process.env.REACT_APP_GOOGLE_SHEETS_SPREADSHEET_ID)
-let sheet;
+import {connect} from 'react-redux'
+import {addToDo} from '../actions'
+import moment from 'moment'
 
 class SingleCol extends React.Component {
+
   state = {
       data: {
           name: '',
@@ -29,7 +27,7 @@ class SingleCol extends React.Component {
           email: '',
           gstReg: '',
           ABN: '',
-          noOfSites: null,
+          noOfSites: '',
           noOfEmployees: '',
           accSoft: '',
           package: '',
@@ -39,39 +37,35 @@ class SingleCol extends React.Component {
 
   handleChange = (type, text) => {
     this.setState({
-      [type]: text
+        data: {
+            ...this.state.data,
+            [type]: text
+        }
     })
-    console.log(text)
-  }
-
-  componentDidMount() {
-    //   doc.useServiceAccountAuth(creds, (err) => console.log('error: ', err));
-
-      console.log('DOC: ', doc)
-      doc.getInfo((err) => {
-        // console.log('Loaded doc: '+info.title+' by '+info.author.email);
-        // console.log('info: ', info)
-        console.log('get info err: ', err)
-        // sheet = info.worksheets[0];
-        // console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
-        // this.step();
-      });
-  }
-
-  step = (err) => {
-    if( err ) {
-        console.log('Error: '+err);
-      }
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-
-    
+    this.props.addToDo({
+        [moment().format()]: this.state.data
+    });
+    this.setState({
+        data: {
+            name: '',
+            company: '',
+            email: '',
+            gstReg: '',
+            ABN: '',
+            noOfSites: '',
+            noOfEmployees: '',
+            accSoft: '',
+            package: '',
+            opState: '',
+        }
+    });    
   }
 
   render() {
-
     return (
         <>
         <div className='header'>
@@ -93,7 +87,7 @@ class SingleCol extends React.Component {
                             id="standard-name"
                             label="Name"
                             className='input'
-                            value={this.state.name}
+                            value={this.state.data.name}
                             onChange={(text) => this.handleChange('name', text.target.value)}
                             margin="normal"
                             required={true}
@@ -102,7 +96,7 @@ class SingleCol extends React.Component {
                             id="company-name"
                             label="Company"
                             className='input'
-                            value={this.state.company}
+                            value={this.state.data.company}
                             onChange={(text) => this.handleChange('company', text.target.value)}
                             margin="normal"
                             required={true}
@@ -111,7 +105,7 @@ class SingleCol extends React.Component {
                             id="email"
                             label="Email"
                             className='input'
-                            value={this.state.email}
+                            value={this.state.data.email}
                             onChange={(text) => this.handleChange('email', text.target.value)}
                             margin="normal"
                             required={true}
@@ -122,18 +116,18 @@ class SingleCol extends React.Component {
                         aria-label="gstReg"
                         name="gstReg"
                         className='label'
-                        value={this.state.gstReg}
+                        value={this.state.data.gstReg}
                         onChange={(option) => this.handleChange('gstReg', option.target.value)}
                         >
-                            <FormControlLabel value="cash" control={<Radio />} label="Cash" className={this.state.gstReg === 'cash' ? 'selected' : ''}/>
-                            <FormControlLabel value="accrual" control={<Radio />} label="Accrual" className={this.state.gstReg === 'accrual' ? 'selected' : ''}/>
-                            <FormControlLabel value="notRegistered" control={<Radio />} label="Not currently registered" className={this.state.gstReg === 'notRegistered' ? 'selected' : ''}/>
+                            <FormControlLabel value="cash" control={<Radio />} label="Cash" className={this.state.data.gstReg === 'cash' ? 'selected' : ''}/>
+                            <FormControlLabel value="accrual" control={<Radio />} label="Accrual" className={this.state.data.gstReg === 'accrual' ? 'selected' : ''}/>
+                            <FormControlLabel value="notRegistered" control={<Radio />} label="Not currently registered" className={this.state.data.gstReg === 'notRegistered' ? 'selected' : ''}/>
                         </RadioGroup>
                         <TextField
                             id="abn"
                             label="ABN"
                             className='input'
-                            value={this.state.ABN}
+                            value={this.state.data.ABN}
                             onChange={(text) => this.handleChange('ABN', text.target.value)}
                             margin="normal"
                             required={true}
@@ -142,7 +136,7 @@ class SingleCol extends React.Component {
                             id="noOfSites"
                             label="Number of sites"
                             className='input'
-                            value={this.state.noOfSites}
+                            value={this.state.data.noOfSites}
                             onChange={(text) => this.handleChange('noOfSites', text.target.value)}
                             margin="normal"
                             required={true}
@@ -151,7 +145,7 @@ class SingleCol extends React.Component {
                         <FormControl>
                             <InputLabel htmlFor="no-of-employees">Number of employees<span className='MuiFormLabel-asterisk'>*</span></InputLabel>
                             <Select
-                            value={this.state.noOfEmployees}
+                            value={this.state.data.noOfEmployees}
                             onChange={(value) => this.handleChange('noOfEmployees', value.target.value)}
                             inputProps={{
                                 name: 'noOfEmployees',
@@ -175,17 +169,17 @@ class SingleCol extends React.Component {
                         aria-label="opState"
                         name="opState"
                         className='label'
-                        value={this.state.opState}
+                        value={this.state.data.opState}
                         onChange={(option) => this.handleChange('opState', option.target.value)}
                         >
-                            <FormControlLabel value="yes" control={<Radio />} label="Yes" className={this.state.gstReg === 'yes' ? 'selected' : ''}/>
-                            <FormControlLabel value="no" control={<Radio />} label="No, we operate offline" className={this.state.gstReg === 'no' ? 'selected' : ''}/>
+                            <FormControlLabel value="yes" control={<Radio />} label="Yes" className={this.state.data.gstReg === 'yes' ? 'selected' : ''}/>
+                            <FormControlLabel value="no" control={<Radio />} label="No, we operate offline" className={this.state.data.gstReg === 'no' ? 'selected' : ''}/>
                         </RadioGroup>
                         <TextField
                             id="accSoft"
                             label="Accounting Software"
                             className='input'
-                            value={this.state.accSoft}
+                            value={this.state.data.accSoft}
                             onChange={(text) => this.handleChange('accSoft', text.target.value)}
                             margin="normal"
                             required={false}
@@ -194,13 +188,13 @@ class SingleCol extends React.Component {
                             id="package"
                             label="Package used"
                             className='input'
-                            value={this.state.package}
+                            value={this.state.data.package}
                             onChange={(text) => this.handleChange('package', text.target.value)}
                             margin="normal"
                             required={false}
                         />
 
-                        <Button variant="contained" size="large" color="primary" className='submit-button'>
+                        <Button variant="contained" size="large" color="primary" className='submit-button' onClick={this.handleSubmit}>
                         Submit
                         </Button>
                     </form>
@@ -248,4 +242,11 @@ class SingleCol extends React.Component {
   }
 }
 
-export default SingleCol;
+const mapStateToProps = ({data}) => {
+    return {
+      data
+    }
+  }
+
+  
+  export default connect(mapStateToProps, {addToDo})(SingleCol)

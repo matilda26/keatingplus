@@ -10,16 +10,12 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
 
-import GoogleSpreadsheet from 'google-spreadsheet'
 import { FormControl } from '@material-ui/core'
 import { ReactComponent as Logo } from './logo-stacked.svg'
 import { ReactComponent as Plus } from './plus.svg'
 import { ReactComponent as Arrow } from './arrow.svg'
 
-const creds = require('../helpers/credentials.json')
 
-const doc = new GoogleSpreadsheet(process.env.REACT_APP_GOOGLE_SHEETS_SPREADSHEET_ID)
-let sheet;
 
 class Homepage extends React.Component {
   state = {
@@ -45,23 +41,7 @@ class Homepage extends React.Component {
   }
 
   componentDidMount() {
-      doc.useServiceAccountAuth(creds, (err) => console.log('error: ', err));
 
-      console.log('DOC: ', doc)
-      doc.getInfo((err) => {
-        // console.log('Loaded doc: '+info.title+' by '+info.author.email);
-        // console.log('info: ', info)
-        console.log('get info err: ', err)
-        // sheet = info.worksheets[0];
-        // console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
-        // this.step();
-      });
-  }
-
-  step = (err) => {
-    if( err ) {
-        console.log('Error: '+err);
-      }
   }
 
   handleSubmit = (event) => {
@@ -74,6 +54,7 @@ class Homepage extends React.Component {
 
     return (
         <>
+       
         <div className='header'>
             <Logo className='header-logo'/>
         </div>
@@ -235,4 +216,4 @@ class Homepage extends React.Component {
   }
 }
 
-export default Homepage;
+export default Homepage
