@@ -328,6 +328,7 @@ class SingleCol extends React.Component {
         };
       });
     }
+    // test
   };
 
   render() {
