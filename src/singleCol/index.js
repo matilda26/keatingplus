@@ -20,9 +20,9 @@ import { connect } from "react-redux";
 import { addToDo } from "../actions";
 import moment from "moment";
 
-import express from "express";
-import bodyParser from "body-parser";
-import request from "superagent";
+// import { express } from "express";
+// import bodyParser from "body-parser";
+// import request from "superagent";
 
 class SingleCol extends React.Component {
   state = {
@@ -100,48 +100,48 @@ class SingleCol extends React.Component {
     }
   };
 
-  addToMailchimp = () => {
-    const app = express();
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
-    const mailchimpInstance = "us3",
-      listUniqueId = process.env.REACT_APP_MAILCHIMP_LIST_ID,
-      mailchimpApiKey = process.env.REACT_APP_MAILCHIMP_API_KEY;
+  // addToMailchimp = () => {
+  //   const app = express();
+  //   app.use(bodyParser.json());
+  //   app.use(bodyParser.urlencoded({ extended: true }));
+  //   const mailchimpInstance = "us3",
+  //     listUniqueId = process.env.REACT_APP_MAILCHIMP_LIST_ID,
+  //     mailchimpApiKey = process.env.REACT_APP_MAILCHIMP_API_KEY;
 
-    app.post("/signup", function(req, res) {
-      request
-        .post(
-          "https://" +
-            mailchimpInstance +
-            ".api.mailchimp.com/3.0/lists/" +
-            listUniqueId +
-            "/members/"
-        )
-        .set("Content-Type", "application/json;charset=utf-8")
-        .set(
-          "Authorization",
-          "Basic " + new Buffer("any:" + mailchimpApiKey).toString("base64")
-        )
-        .send({
-          email_address: req.body.email,
-          status: "subscribed",
-          merge_fields: {
-            FNAME: req.body.firstName,
-            LNAME: req.body.lastName
-          }
-        })
-        .end(function(err, response) {
-          if (
-            response.status < 300 ||
-            (response.status === 400 && response.body.title === "Member Exists")
-          ) {
-            res.send("Signed Up!");
-          } else {
-            res.send("Sign Up Failed :(");
-          }
-        });
-    });
-  };
+  //   app.post("/signup", function(req, res) {
+  //     request
+  //       .post(
+  //         "https://" +
+  //           mailchimpInstance +
+  //           ".api.mailchimp.com/3.0/lists/" +
+  //           listUniqueId +
+  //           "/members/"
+  //       )
+  //       .set("Content-Type", "application/json;charset=utf-8")
+  //       .set(
+  //         "Authorization",
+  //         "Basic " + new Buffer("any:" + mailchimpApiKey).toString("base64")
+  //       )
+  //       .send({
+  //         email_address: req.body.email,
+  //         status: "subscribed",
+  //         merge_fields: {
+  //           FNAME: req.body.firstName,
+  //           LNAME: req.body.lastName
+  //         }
+  //       })
+  //       .end(function(err, response) {
+  //         if (
+  //           response.status < 300 ||
+  //           (response.status === 400 && response.body.title === "Member Exists")
+  //         ) {
+  //           res.send("Signed Up!");
+  //         } else {
+  //           res.send("Sign Up Failed :(");
+  //         }
+  //       });
+  //   });
+  // };
 
   validateFields = async () => {
     const { data } = this.state;
