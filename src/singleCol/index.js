@@ -376,21 +376,8 @@ class SingleCol extends React.Component {
           <div className="form-wrapper">
             <form className="form" onSubmit={this.handleSubmit}>
               <TextField
-                id="standard-name"
-                label="Name"
-                className="input"
-                value={this.state.data.name}
-                onChange={text => this.handleChange("name", text.target.value)}
-                margin="normal"
-                required={true}
-                error={this.state.errors.name === true}
-                helperText={
-                  this.state.errors.name ? "Please add your name" : null
-                }
-              />
-              <TextField
                 id="company-name"
-                label="Company"
+                label="Business name"
                 className="input"
                 value={this.state.data.company}
                 onChange={text =>
@@ -400,7 +387,35 @@ class SingleCol extends React.Component {
                 required={true}
                 error={this.state.errors.company === true}
                 helperText={
-                  this.state.errors.company ? "Please add your company" : null
+                  this.state.errors.company
+                    ? "Please add your Buisness name"
+                    : null
+                }
+              />
+              <TextField
+                id="abn"
+                label="ABN"
+                className="input"
+                value={this.state.data.ABN}
+                onChange={text => this.handleChange("ABN", text.target.value)}
+                margin="normal"
+                required={true}
+                error={this.state.errors.ABN === true}
+                helperText={
+                  this.state.errors.ABN ? "Please enter a valid ABN" : null
+                }
+              />
+              <TextField
+                id="standard-name"
+                label="Contact name"
+                className="input"
+                value={this.state.data.name}
+                onChange={text => this.handleChange("name", text.target.value)}
+                margin="normal"
+                required={true}
+                error={this.state.errors.name === true}
+                helperText={
+                  this.state.errors.name ? "Please add a contact name" : null
                 }
               />
               <TextField
@@ -458,19 +473,7 @@ class SingleCol extends React.Component {
               {this.state.errors.gstReg === true && (
                 <FormHelperText>Please select an option above</FormHelperText>
               )}
-              <TextField
-                id="abn"
-                label="ABN"
-                className="input"
-                value={this.state.data.ABN}
-                onChange={text => this.handleChange("ABN", text.target.value)}
-                margin="normal"
-                required={true}
-                error={this.state.errors.ABN === true}
-                helperText={
-                  this.state.errors.ABN ? "Please enter a valid ABN" : null
-                }
-              />
+
               <TextField
                 id="noOfSites"
                 label="Number of sites"
