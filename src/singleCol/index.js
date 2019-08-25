@@ -102,16 +102,6 @@ class SingleCol extends React.Component {
     ) {
       console.log("no errors");
 
-      fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({ "form-name": "signup", ...this.state.data })
-      })
-        .then(() => {
-          this.toggleModal();
-        })
-        .catch(error => alert(error));
-
       const results = {
         company: this.state.data.company,
         ABN: this.state.data.ABN,
@@ -125,12 +115,26 @@ class SingleCol extends React.Component {
         noOfEmployees: this.state.data.noOfEmployees,
         package: this.state.data.package,
         bankFeed: this.state.data.bankFeed,
-        services: this.state.data.services.join(", ")
+        services: this.state.data.services.join(",")
       };
 
-      this.props.addToDo({
-        [moment().format()]: results
-      });
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": "signup", ...results })
+      })
+        .then(() => {
+          this.props.addToDo({
+            [moment().format()]: results
+          });
+          this.toggleModal();
+        })
+        .catch(error => alert(error));
+
+      console.log("name", this.state.data.name);
+      console.log("split", this.state.data.name.split(" "));
+      console.log("first", this.state.data.name.split(" ")[0]);
+      console.log("results", results);
 
       this.setState({
         data: {
