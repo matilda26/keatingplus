@@ -115,7 +115,10 @@ class SingleCol extends React.Component {
       const results = {
         company: this.state.data.company,
         ABN: this.state.data.ABN,
-        name: this.state.data.name,
+        firstName: this.state.data.name.split(" ")[0],
+        lastName: this.state.data.name.split(" ")[1]
+          ? this.state.data.name.split(" ")[1]
+          : "",
         email: this.state.data.email,
         gstReg: this.state.data.gstReg,
         noOfSites: this.state.data.noOfSites,
