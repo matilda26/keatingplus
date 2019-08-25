@@ -44,11 +44,7 @@ class SingleCol extends React.Component {
       noOfEmployees: "",
       package: "",
       bankFeed: "",
-      services: {
-        autoBas: false,
-        autoReturns: false,
-        autoReporting: false
-      }
+      services: []
     },
     errors: {},
     formSubmitted: false,
@@ -65,15 +61,21 @@ class SingleCol extends React.Component {
   };
 
   handleCheckBox = (type, text) => {
-    this.setState({
-      data: {
-        ...this.state.data,
-        services: {
-          ...this.state.data.services,
-          [type]: text
+    if (text === true) {
+      this.setState({
+        data: {
+          ...this.state.data,
+          services: [...this.state.data.services, type]
         }
-      }
-    });
+      });
+    } else {
+      this.setState({
+        data: {
+          ...this.state.data,
+          services: this.state.data.services.filter(service => service !== type)
+        }
+      });
+    }
   };
 
   toggleModal = () => {
@@ -632,7 +634,9 @@ class SingleCol extends React.Component {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        checked={this.state.data.services.autoBas}
+                        checked={
+                          this.state.data.services.indexOf("autoBas") !== -1
+                        }
                         onChange={option =>
                           this.handleCheckBox("autoBas", option.target.checked)
                         }
@@ -649,7 +653,9 @@ class SingleCol extends React.Component {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        checked={this.state.data.services.autoReturns}
+                        checked={
+                          this.state.data.services.indexOf("autoReturns") !== -1
+                        }
                         onChange={option =>
                           this.handleCheckBox(
                             "autoReturns",
@@ -669,7 +675,10 @@ class SingleCol extends React.Component {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        checked={this.state.data.services.autoReporting}
+                        checked={
+                          this.state.data.services.indexOf("autoReporting") !==
+                          -1
+                        }
                         onChange={option =>
                           this.handleCheckBox(
                             "autoReporting",
