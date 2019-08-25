@@ -22,10 +22,6 @@ import { connect } from "react-redux";
 import { addToDo } from "../actions";
 import moment from "moment";
 
-// import { express } from "express";
-// import bodyParser from "body-parser";
-// import request from "superagent";
-
 const encode = data => {
   return Object.keys(data)
     .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
@@ -100,8 +96,6 @@ class SingleCol extends React.Component {
       !this.state.errors.package &&
       !this.state.errors.bankFeed
     ) {
-      console.log("no errors");
-
       const results = {
         company: this.state.data.company,
         ABN: this.state.data.ABN,
@@ -115,7 +109,7 @@ class SingleCol extends React.Component {
         noOfEmployees: this.state.data.noOfEmployees,
         package: this.state.data.package,
         bankFeed: this.state.data.bankFeed,
-        services: this.state.data.services.join(",")
+        services: this.state.data.services.join(", ")
       };
 
       fetch("/", {
@@ -130,11 +124,6 @@ class SingleCol extends React.Component {
           this.toggleModal();
         })
         .catch(error => alert(error));
-
-      console.log("name", this.state.data.name);
-      console.log("split", this.state.data.name.split(" "));
-      console.log("first", this.state.data.name.split(" ")[0]);
-      console.log("results", results);
 
       this.setState({
         data: {
@@ -161,7 +150,6 @@ class SingleCol extends React.Component {
     const ABNRegex = /^(\d *?){11}$/;
 
     if (data.name.length < 1) {
-      console.log("name failed");
       this.setState((state, props) => {
         return {
           errors: {
@@ -181,7 +169,6 @@ class SingleCol extends React.Component {
       });
     }
     if (data.company.length < 1) {
-      console.log("company failed");
       this.setState((state, props) => {
         return {
           errors: {
@@ -201,7 +188,6 @@ class SingleCol extends React.Component {
       });
     }
     if (emailRegex.test(String(data.email).toLowerCase()) === false) {
-      console.log("email failed");
       this.setState((state, props) => {
         return {
           errors: {
@@ -221,7 +207,6 @@ class SingleCol extends React.Component {
       });
     }
     if (data.gstReg === "") {
-      console.log("gst failed");
       this.setState((state, props) => {
         return {
           errors: {
@@ -241,7 +226,6 @@ class SingleCol extends React.Component {
       });
     }
     if (ABNRegex.test(data.ABN) === false) {
-      console.log("ABN failed");
       this.setState((state, props) => {
         return {
           errors: {
@@ -261,7 +245,6 @@ class SingleCol extends React.Component {
       });
     }
     if (data.noOfSites === "") {
-      console.log("noOfSites failed");
       this.setState((state, props) => {
         return {
           errors: {
@@ -281,7 +264,6 @@ class SingleCol extends React.Component {
       });
     }
     if (data.noOfEmployees === "") {
-      console.log("noOfEmployees failed");
       this.setState((state, props) => {
         return {
           errors: {
@@ -301,7 +283,6 @@ class SingleCol extends React.Component {
       });
     }
     if (data.package === "") {
-      console.log("package failed");
       this.setState((state, props) => {
         return {
           errors: {
@@ -321,7 +302,6 @@ class SingleCol extends React.Component {
       });
     }
     if (data.bankFeed === "") {
-      console.log("bankFeed failed");
       this.setState((state, props) => {
         return {
           errors: {
@@ -357,7 +337,8 @@ class SingleCol extends React.Component {
         <div className="form-scrollbounds">
           <div className="form-text">
             <h2 className="form-heading">
-              Running your business is about to become a lot simpler.
+              Running your business is about to become a lot{" "}
+              <span className="text-highlight__lightgreen">simpler.</span>
             </h2>
             <div className="underline-detail" />
             <p className="side-heading">
