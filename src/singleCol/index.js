@@ -24,6 +24,12 @@ import moment from "moment";
 // import bodyParser from "body-parser";
 // import request from "superagent";
 
+const encode = data => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+};
+
 class SingleCol extends React.Component {
   state = {
     data: {
@@ -75,6 +81,16 @@ class SingleCol extends React.Component {
       !this.state.errors.bankFeed
     ) {
       console.log("no errors");
+
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": "signup", ...this.state.data })
+      })
+        .then(() => alert("Success!"))
+        .catch(error => alert(error));
+
+      event.preventDefault();
 
       this.props.addToDo({
         [moment().format()]: this.state.data
@@ -374,7 +390,7 @@ class SingleCol extends React.Component {
             </p>
           </div>
           <div className="form-wrapper">
-            <form className="form" onSubmit={this.handleSubmit} method="post">
+            <form className="form" onSubmit={this.handleSubmit}>
               <input type="hidden" name="form-name" value="signup" />
               <TextField
                 id="company-name"
