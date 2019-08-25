@@ -385,7 +385,7 @@ class SingleCol extends React.Component {
             <form className="form" onSubmit={this.handleSubmit}>
               <input type="hidden" name="form-name" value="signup" />
               <TextField
-                id="company-name"
+                id="company"
                 label="Business name"
                 className="input"
                 value={this.state.data.company}
