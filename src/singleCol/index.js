@@ -124,7 +124,12 @@ class SingleCol extends React.Component {
           noOfSites: "",
           noOfEmployees: "",
           package: "",
-          bankFeed: ""
+          bankFeed: "",
+          services: {
+            autoBas: false,
+            autoReturns: false,
+            autoReporting: false
+          }
         },
         errors: {},
         formSubmitted: true
