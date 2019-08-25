@@ -363,9 +363,10 @@ class SingleCol extends React.Component {
                 error={this.state.errors.company === true}
                 helperText={
                   this.state.errors.company
-                    ? "Please add your Buisness name"
+                    ? "Please add your business name"
                     : null
                 }
+                autoComplete={false}
               />
               <TextField
                 id="abn"
@@ -392,6 +393,7 @@ class SingleCol extends React.Component {
                 helperText={
                   this.state.errors.name ? "Please add a contact name" : null
                 }
+                autoComplete={false}
               />
               <TextField
                 id="email"
@@ -406,6 +408,7 @@ class SingleCol extends React.Component {
                 helperText={
                   this.state.errors.email ? "Please enter a valid email" : null
                 }
+                autoComplete={false}
               />
               <FormLabel component="legend" className="checkbox-label">
                 GST Registration
