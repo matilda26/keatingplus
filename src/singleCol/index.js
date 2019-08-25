@@ -116,49 +116,6 @@ class SingleCol extends React.Component {
     }
   };
 
-  // addToMailchimp = () => {
-  //   const app = express();
-  //   app.use(bodyParser.json());
-  //   app.use(bodyParser.urlencoded({ extended: true }));
-  //   const mailchimpInstance = "us3",
-  //     listUniqueId = process.env.REACT_APP_MAILCHIMP_LIST_ID,
-  //     mailchimpApiKey = process.env.REACT_APP_MAILCHIMP_API_KEY;
-
-  //   app.post("/signup", function(req, res) {
-  //     request
-  //       .post(
-  //         "https://" +
-  //           mailchimpInstance +
-  //           ".api.mailchimp.com/3.0/lists/" +
-  //           listUniqueId +
-  //           "/members/"
-  //       )
-  //       .set("Content-Type", "application/json;charset=utf-8")
-  //       .set(
-  //         "Authorization",
-  //         "Basic " + new Buffer("any:" + mailchimpApiKey).toString("base64")
-  //       )
-  //       .send({
-  //         email_address: req.body.email,
-  //         status: "subscribed",
-  //         merge_fields: {
-  //           FNAME: req.body.firstName,
-  //           LNAME: req.body.lastName
-  //         }
-  //       })
-  //       .end(function(err, response) {
-  //         if (
-  //           response.status < 300 ||
-  //           (response.status === 400 && response.body.title === "Member Exists")
-  //         ) {
-  //           res.send("Signed Up!");
-  //         } else {
-  //           res.send("Sign Up Failed :(");
-  //         }
-  //       });
-  //   });
-  // };
-
   validateFields = async () => {
     const { data } = this.state;
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -344,7 +301,6 @@ class SingleCol extends React.Component {
         };
       });
     }
-    // test
   };
 
   render() {
@@ -362,27 +318,31 @@ class SingleCol extends React.Component {
         <div className="form-scrollbounds">
           <div className="form-text">
             <h2 className="form-heading">
-              Fill out our questionnaire for a detailed quote:
+              Running your business is about to become a lot simpler.
             </h2>
             <div className="underline-detail" />
             <p className="side-heading">
-              As an extension to your Cloud RMS Property Management System, you
-              can now have{" "}
+              The{" "}
               <span className="text-highlight__lightgreen">
-                all your Bas calculated and lodged
+                K+ Automatic Online
               </span>{" "}
-              as well as all your{" "}
-              <span className="text-highlight__lightgreen">
-                annual reports and tax returns done online
-              </span>{" "}
-              with the minimum of fuss.
+              Accounting System.
               <br />
               <br />
-              With our simple accurate system we guarantee you will be{" "}
+              K+ has been developed by{" "}
+              <span className="text-highlight__lightgreen">Keating and Co</span>
+              , Chartered Accountants, to expand your RMS Cloud-based Property
+              Management System. Keating and Co has had a 25-year working
+              relationship with RMS.
+              <br />
+              <br />
+              To take advantage of this offer, simply{" "}
               <span className="text-highlight__lightgreen">
-                corporately compliant and up to date.
+                fill in this questionnaire for a detailed quote.
               </span>{" "}
-              Choose all or any of our unique online services.
+              This information will be confidentially and professionally handled
+              within guidelines of the Australian Institute of Chartered
+              Accountants.
             </p>
             <p className="note">
               Please note, all required fields are marked with a{" "}
