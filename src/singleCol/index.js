@@ -375,6 +375,7 @@ class SingleCol extends React.Component {
           </div>
           <div className="form-wrapper">
             <form className="form" onSubmit={this.handleSubmit}>
+              <input type="hidden" name="form-name" value="signup" />
               <TextField
                 id="company-name"
                 label="Business name"
@@ -406,7 +407,7 @@ class SingleCol extends React.Component {
                 }
               />
               <TextField
-                id="standard-name"
+                id="name"
                 label="Contact name"
                 className="input"
                 value={this.state.data.name}
