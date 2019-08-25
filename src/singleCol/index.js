@@ -112,8 +112,21 @@ class SingleCol extends React.Component {
         })
         .catch(error => alert(error));
 
+      const results = {
+        company: this.state.data.company,
+        ABN: this.state.data.ABN,
+        name: this.state.data.name,
+        email: this.state.data.email,
+        gstReg: this.state.data.gstReg,
+        noOfSites: this.state.data.noOfSites,
+        noOfEmployees: this.state.data.noOfEmployees,
+        package: this.state.data.package,
+        bankFeed: this.state.data.bankFeed,
+        services: this.state.data.services.join(", ")
+      };
+
       this.props.addToDo({
-        [moment().format()]: this.state.data
+        [moment().format()]: results
       });
 
       this.setState({
@@ -127,11 +140,7 @@ class SingleCol extends React.Component {
           noOfEmployees: "",
           package: "",
           bankFeed: "",
-          services: {
-            autoBas: false,
-            autoReturns: false,
-            autoReporting: false
-          }
+          services: []
         },
         errors: {},
         formSubmitted: true
