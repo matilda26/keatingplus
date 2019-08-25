@@ -11,6 +11,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Modal from "@material-ui/core/Modal";
+import FormGroup from "@material-ui/core/FormGroup";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import { FormControl } from "@material-ui/core";
 import { ReactComponent as Logo } from "./logo-stacked.svg";
@@ -42,7 +44,11 @@ class SingleCol extends React.Component {
       noOfEmployees: "",
       package: "",
       bankFeed: "",
-      services: ""
+      services: {
+        autoBas: false,
+        autoReturns: false,
+        autoReporting: false
+      }
     },
     errors: {},
     formSubmitted: false,
@@ -54,6 +60,18 @@ class SingleCol extends React.Component {
       data: {
         ...this.state.data,
         [type]: text
+      }
+    });
+  };
+
+  handleCheckBox = (type, text) => {
+    this.setState({
+      data: {
+        ...this.state.data,
+        services: {
+          ...this.state.data.services,
+          [type]: text
+        }
       }
     });
   };
@@ -604,42 +622,67 @@ class SingleCol extends React.Component {
               <FormLabel component="legend" className="checkbox-label">
                 I am interested in:
               </FormLabel>
-              <RadioGroup
-                aria-label="services"
-                name="services"
-                className="label"
-                value={this.state.data.services}
-                onChange={option =>
-                  this.handleChange("services", option.target.value)
-                }
-              >
-                <FormControlLabel
-                  value="autoBas"
-                  control={<Radio />}
-                  label="+ AutoBas"
-                  className={
-                    this.state.data.services === "autoBas" ? "selected" : ""
-                  }
-                />
-                <FormControlLabel
-                  value="autoReturns"
-                  control={<Radio />}
-                  label="+ AutoReturns"
-                  className={
-                    this.state.data.services === "autoReturns" ? "selected" : ""
-                  }
-                />
-                <FormControlLabel
-                  value="autoReporting"
-                  control={<Radio />}
-                  label="+ AutoReporting"
-                  className={
-                    this.state.data.services === "autoReporting"
-                      ? "selected"
-                      : ""
-                  }
-                />
-              </RadioGroup>
+              <FormControl name="services" component="fieldset">
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={this.state.data.services.autoBas}
+                        onChange={option =>
+                          this.handleCheckBox("autoBas", option.target.checked)
+                        }
+                        value="autoBas"
+                      />
+                    }
+                    label="+ AutoBas"
+                    className={
+                      this.state.data.services.autoBas === "autoBas"
+                        ? "selected"
+                        : ""
+                    }
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={this.state.data.services.autoReturns}
+                        onChange={option =>
+                          this.handleCheckBox(
+                            "autoReturns",
+                            option.target.checked
+                          )
+                        }
+                        value="autoReturns"
+                      />
+                    }
+                    label="+ AutoReturns"
+                    className={
+                      this.state.data.services.autoReturns === "autoReturns"
+                        ? "selected"
+                        : ""
+                    }
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={this.state.data.services.autoReporting}
+                        onChange={option =>
+                          this.handleCheckBox(
+                            "autoReporting",
+                            option.target.checked
+                          )
+                        }
+                        value="autoReporting"
+                      />
+                    }
+                    label="+ AutoReporting"
+                    className={
+                      this.state.data.services.autoReporting === "autoReporting"
+                        ? "selected"
+                        : ""
+                    }
+                  />
+                </FormGroup>
+              </FormControl>
               <h3 className="terms-heading">Please note:</h3>
               <p className="terms-message">
                 By clicking submit you agree to receive communications from
