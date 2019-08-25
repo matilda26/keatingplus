@@ -42,7 +42,7 @@ class SingleCol extends React.Component {
       noOfEmployees: "",
       package: "",
       bankFeed: "",
-      extras: ""
+      services: ""
     },
     errors: {},
     formSubmitted: false,
@@ -87,16 +87,14 @@ class SingleCol extends React.Component {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: encode({ "form-name": "signup", ...this.state.data })
       })
-        .then(() => alert("Success!"))
+        .then(() => {
+          this.toggleModal();
+        })
         .catch(error => alert(error));
-
-      event.preventDefault();
 
       this.props.addToDo({
         [moment().format()]: this.state.data
       });
-
-      this.toggleModal();
 
       this.setState({
         data: {
@@ -604,12 +602,12 @@ class SingleCol extends React.Component {
                 I am interested in:
               </FormLabel>
               <RadioGroup
-                aria-label="extras"
-                name="extras"
+                aria-label="services"
+                name="services"
                 className="label"
-                value={this.state.data.extras}
+                value={this.state.data.services}
                 onChange={option =>
-                  this.handleChange("extras", option.target.value)
+                  this.handleChange("services", option.target.value)
                 }
               >
                 <FormControlLabel
@@ -617,7 +615,7 @@ class SingleCol extends React.Component {
                   control={<Radio />}
                   label="+ AutoBas"
                   className={
-                    this.state.data.extras === "autoBas" ? "selected" : ""
+                    this.state.data.services === "autoBas" ? "selected" : ""
                   }
                 />
                 <FormControlLabel
@@ -625,7 +623,7 @@ class SingleCol extends React.Component {
                   control={<Radio />}
                   label="+ AutoReturns"
                   className={
-                    this.state.data.extras === "autoReturns" ? "selected" : ""
+                    this.state.data.services === "autoReturns" ? "selected" : ""
                   }
                 />
                 <FormControlLabel
@@ -633,7 +631,9 @@ class SingleCol extends React.Component {
                   control={<Radio />}
                   label="+ AutoReporting"
                   className={
-                    this.state.data.extras === "autoReporting" ? "selected" : ""
+                    this.state.data.services === "autoReporting"
+                      ? "selected"
+                      : ""
                   }
                 />
               </RadioGroup>
