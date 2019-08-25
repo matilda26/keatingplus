@@ -374,7 +374,7 @@ class SingleCol extends React.Component {
             </p>
           </div>
           <div className="form-wrapper">
-            <form className="form" onSubmit={this.handleSubmit}>
+            <form className="form" onSubmit={this.handleSubmit} method="post">
               <input type="hidden" name="form-name" value="signup" />
               <TextField
                 id="company-name"
@@ -672,6 +672,7 @@ class SingleCol extends React.Component {
                 color="primary"
                 className="submit-button"
                 onClick={this.handleSubmit}
+                type="submit"
               >
                 Submit
               </Button>
